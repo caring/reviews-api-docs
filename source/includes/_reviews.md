@@ -31,9 +31,9 @@ curl "https://dir.caring.com/api/v2/reviews.jsonapi" \
                 "moderation_status": "approved",
                 "moderated_at": "2017-07-20T14:42:44.000-07:00",
                 "author": {
-                    "name": "Bennet52",
+                    "name": "Satisfied Reviewer",
                     "email": "8225995e75243d26@example.com",
-                    "url": "https://www.caring.com/people/bennet52"
+                    "url": "https://www.example.com/people/satisfied-reviewer"
                 },
                 "origin_url": "https://www.caring.com/local/memory-care-facilities-in-dallas-texas/villages-of-lake-highlands#reviews",
                 "created_at": "2017-07-17T10:35:15.000-07:00",
@@ -279,9 +279,9 @@ author | Object | Convenient assignment of `name` ,`title` and `email` fields fo
         "attributes": {
             "local_review_id": 2,
             "author": {
-                "title": "Leader",
-                "name": "Vladimir Putin",
-                "email": "vlad.kgb@example.com"
+                "title": "Community Manager",
+                "name": "Jane Doe",
+                "email": "jane.doe@example.com"
             },
             "public_response": "It would be excellent if you could see things my way.",
             "status": "pending",

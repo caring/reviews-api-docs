@@ -24,7 +24,7 @@ You can report API bugs with [github issues](https://github.com/caring/reviews-a
 
 Requests require an API key that you can obtain by contacting us.
 
-> Authentication header examples:
+> Authentication header example:
 
 ```shell
 curl "https://dir.caring.com/api/v2/example.jsonapi" -H "Caring-Partner: TOKEN_VALUE"

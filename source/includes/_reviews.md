@@ -283,7 +283,7 @@ author | Object | Convenient assignment of `name` ,`title` and `email` fields fo
                 "name": "Jane Doe",
                 "email": "jane.doe@example.com"
             },
-            "public_response": "It would be excellent if you could see things my way.",
+            "public_response": "Thank you for your honesty, we'll work to address those issues.",
             "status": "pending",
             "created_at": "2017-07-31T20:58:33.849-07:00",
             "updated_at": "2017-07-31T20:58:33.849-07:00"
@@ -306,3 +306,7 @@ author | Object | Convenient assignment of `name` ,`title` and `email` fields fo
     ]
 }
 ```
+
+## Updates webhook (Beta)
+
+We currently have a webhook that we use internally to notify our other sites when there are changes to a review. If you're interested in subscribing to the webhook to recieve updates, contact us and we'll make this avaialble.

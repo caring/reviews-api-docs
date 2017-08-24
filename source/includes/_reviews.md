@@ -3,7 +3,7 @@
 ## Querying the collection
 
 ```shell
-curl "https://dir.caring.com/api/v2/reviews.jsonapi" \
+curl "https://dir.caring.com/api/v2/reviews.jsonapi?filter[resource_id]=1229142" \
   -H "Caring-Partner: TOKEN_VALUE"
 ```
 
@@ -42,18 +42,44 @@ curl "https://dir.caring.com/api/v2/reviews.jsonapi" \
         }
     ],
     "links": {
-        "self": "https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=1&page%5Bsize%5D=1&per_page=1",
-        "next": "https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=2&page%5Bsize%5D=1&per_page=1",
-        "last": "https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=1799&page%5Bsize%5D=1&per_page=1"
+        "self": "https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=1&page%5Bsize%5D=1",
+        "next": "https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=2&page%5Bsize%5D=1",
+        "last": "https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=1799&page%5Bsize%5D=1"
     }
 }
 ```
 
 This endpoint retrieves a paginated list of reviews ordered by `last_modified` by default.
 
-The `data` attribute contains the collection of Reviews, while `links` attribute contains the pagination links(`self`, `next` and `last`) so you can easily traverse the collection.
-
 To stay up to date, we recommend that you periodically check the reviews collection ordered by `last_modified` so you can efficently get the updates you need as moderation statuses or review content changes.
+
+### Filter Parameters
+
+To filter the collection you can use any of the following parameters in the `filter` parameter.
+
+`GET https://dir.caring.com/api/v2/reviews.jsonapi?filter[resource_id]=1229142&filter[moderation_status]=approved`
+
+Parameter | Type | Description
+--------- | ------- | -----------
+resource_id | Integer | Numeric ID of the reviewed resource.
+resource_url | Url | The caring.com url of the reviewed resource.
+resource_name | String | The name of the reviewed resource.
+chain_name | String |The name of the chain owning the reviewed resource.
+author_name | String | The screen name of the author of the review.
+author_email | Email Address | The email address of the user posting the review.
+author_url | Url | A personal url to the author of the review.
+moderation_status | Enum('approved', 'rejected', 'further_review', 'spam') | The moderation status of the review.
+sort | String | A sort clause made up of a field and direction Ex: `filter[sort]=id+asc` filters ids ascending.
+
+### Pagination Parameters
+
+`GET https://dir.caring.com/api/v2/reviews.jsonapi?page[number]=1&page[size]=50`
+
+Parameter | Type | Description
+--------- | ------- | -----------
+number | Integer | The page number.
+size | Integer | The number of items per requested page.
+
 
 ### Review Data Attributes
 
@@ -80,16 +106,6 @@ provider_response | Text | A response to the review from the service provider.
 moderated_at | Timestamp | The timestamp of when the review was moderated.
 created_at | Timestamp | The timestamp of the review creation
 updated_at | Timestamp | The timestamp of the last time the review was modified.
-
-### HTTP Request
-
-`GET https://dir.caring.com/api/v2/reviews.jsonapi`
-
-### Query Parameters
-
-Parameter | Default | Description
---------- | ------- | -----------
-per_page | 50 | The number of results per page of reviews.
 
 ## Get a single Review
 

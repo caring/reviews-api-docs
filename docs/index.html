@@ -319,7 +319,7 @@ You must replace <code>TOKEN_VALUE</code> with your API key.
 <td>Service Unavailable -- We&#39;re temporarily offline for maintenance. Please try again later.</td>
 </tr>
 </tbody></table>
-<h1 id='reviews'>Reviews</h1><h2 id='querying-the-collection'>Querying the collection</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi"</span> <span class="se">\</span>
+<h1 id='reviews'>Reviews</h1><h2 id='querying-the-collection'>Querying the collection</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi?filter[resource_id]=1229142"</span> <span class="se">\</span>
   -H <span class="s2">"Caring-Partner: TOKEN_VALUE"</span>
 </code></pre>
 <blockquote>
@@ -357,17 +357,94 @@ You must replace <code>TOKEN_VALUE</code> with your API key.
         </span><span class="p">}</span><span class="w">
     </span><span class="p">],</span><span class="w">
     </span><span class="s2">"links"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=1&amp;page%5Bsize%5D=1&amp;per_page=1"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=2&amp;page%5Bsize%5D=1&amp;per_page=1"</span><span class="p">,</span><span class="w">
-        </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=1799&amp;page%5Bsize%5D=1&amp;per_page=1"</span><span class="w">
+        </span><span class="s2">"self"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=1&amp;page%5Bsize%5D=1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"next"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=2&amp;page%5Bsize%5D=1"</span><span class="p">,</span><span class="w">
+        </span><span class="s2">"last"</span><span class="p">:</span><span class="w"> </span><span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi?page%5Bnumber%5D=1799&amp;page%5Bsize%5D=1"</span><span class="w">
     </span><span class="p">}</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves a paginated list of reviews ordered by <code>last_modified</code> by default.</p>
 
-<p>The <code>data</code> attribute contains the collection of Reviews, while <code>links</code> attribute contains the pagination links(<code>self</code>, <code>next</code> and <code>last</code>) so you can easily traverse the collection.</p>
-
 <p>To stay up to date, we recommend that you periodically check the reviews collection ordered by <code>last_modified</code> so you can efficently get the updates you need as moderation statuses or review content changes.</p>
+<h3 id='filter-parameters'>Filter Parameters</h3>
+<p>To filter the collection you can use any of the following parameters in the <code>filter</code> parameter.</p>
+
+<p><code>GET https://dir.caring.com/api/v2/reviews.jsonapi?filter[resource_id]=1229142&amp;filter[moderation_status]=approved</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>resource_id</td>
+<td>Integer</td>
+<td>Numeric ID of the reviewed resource.</td>
+</tr>
+<tr>
+<td>resource_url</td>
+<td>Url</td>
+<td>The caring.com url of the reviewed resource.</td>
+</tr>
+<tr>
+<td>resource_name</td>
+<td>String</td>
+<td>The name of the reviewed resource.</td>
+</tr>
+<tr>
+<td>chain_name</td>
+<td>String</td>
+<td>The name of the chain owning the reviewed resource.</td>
+</tr>
+<tr>
+<td>author_name</td>
+<td>String</td>
+<td>The screen name of the author of the review.</td>
+</tr>
+<tr>
+<td>author_email</td>
+<td>Email Address</td>
+<td>The email address of the user posting the review.</td>
+</tr>
+<tr>
+<td>author_url</td>
+<td>Url</td>
+<td>A personal url to the author of the review.</td>
+</tr>
+<tr>
+<td>moderation_status</td>
+<td>Enum(&#39;approved&#39;, &#39;rejected&#39;, &#39;further_review&#39;, &#39;spam&#39;)</td>
+<td>The moderation status of the review.</td>
+</tr>
+<tr>
+<td>sort</td>
+<td>String</td>
+<td>A sort clause made up of a field and direction Ex: <code>filter[sort]=id+asc</code> filters ids ascending.</td>
+</tr>
+</tbody></table>
+<h3 id='pagination-parameters'>Pagination Parameters</h3>
+<p><code>GET https://dir.caring.com/api/v2/reviews.jsonapi?page[number]=1&amp;page[size]=50</code></p>
+
+<table><thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>number</td>
+<td>Integer</td>
+<td>The page number.</td>
+</tr>
+<tr>
+<td>size</td>
+<td>Integer</td>
+<td>The number of items per requested page.</td>
+</tr>
+</tbody></table>
 <h3 id='review-data-attributes'>Review Data Attributes</h3>
 <aside class="notice">
 For all of the numeric attributes 0 is equal to N/A
@@ -466,22 +543,6 @@ For all of the numeric attributes 0 is equal to N/A
 <td>The timestamp of the last time the review was modified.</td>
 </tr>
 </tbody></table>
-<h3 id='http-request'>HTTP Request</h3>
-<p><code>GET https://dir.caring.com/api/v2/reviews.jsonapi</code></p>
-<h3 id='query-parameters'>Query Parameters</h3>
-<table><thead>
-<tr>
-<th>Parameter</th>
-<th>Default</th>
-<th>Description</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>per_page</td>
-<td>50</td>
-<td>The number of results per page of reviews.</td>
-</tr>
-</tbody></table>
 <h2 id='get-a-single-review'>Get a single Review</h2><pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dir.caring.com/api/v2/reviews/2.jsonapi"</span> <span class="se">\</span>
   -H <span class="s2">"Caring-Partner: TOKEN_VALUE"</span>
 </code></pre>
@@ -520,7 +581,7 @@ For all of the numeric attributes 0 is equal to N/A
 </span><span class="p">}</span><span class="w">
 </span></code></pre>
 <p>This endpoint retrieves a single review.</p>
-<h3 id='http-request-2'>HTTP Request</h3>
+<h3 id='http-request'>HTTP Request</h3>
 <p><code>GET https://dir.caring.com/api/v2/reviews/:id.jsonapi</code></p>
 <h3 id='url-parameters'>URL Parameters</h3>
 <table><thead>
@@ -534,7 +595,7 @@ For all of the numeric attributes 0 is equal to N/A
 <td>The id of the review to retrieve</td>
 </tr>
 </tbody></table>
-<h2 id='creating-a-review'>Creating a Review</h2><h3 id='http-request-3'>HTTP Request</h3>
+<h2 id='creating-a-review'>Creating a Review</h2><h3 id='http-request-2'>HTTP Request</h3>
 <p><code>POST https://dir.caring.com/api/v2/reviews.jsonapi</code></p>
 <pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dir.caring.com/api/v2/reviews.jsonapi"</span> <span class="se">\</span>
   -H <span class="s2">"Caring-Partner: TOKEN_VALUE"</span> <span class="se">\</span>
@@ -624,7 +685,7 @@ For all of the numeric attributes 0 is equal to N/A
 <td>Unprocessable Entity</td>
 </tr>
 </tbody></table>
-<h2 id='creating-a-response-to-a-review'>Creating a Response to a Review</h2><h3 id='http-request-4'>HTTP Request</h3>
+<h2 id='creating-a-response-to-a-review'>Creating a Response to a Review</h2><h3 id='http-request-3'>HTTP Request</h3>
 <p><code>POST https://dir.caring.com/api/v2/reviews/:id/responses.jsonapi</code></p>
 <pre class="highlight shell tab-shell"><code>curl <span class="s2">"https://dir.caring.com/api/v2/reviews/2/responses.jsonapi"</span> <span class="se">\</span>
   -H <span class="s2">"Caring-Partner: TOKEN_VALUE"</span> <span class="se">\</span>
